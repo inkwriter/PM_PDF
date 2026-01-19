@@ -27,7 +27,8 @@ const checklistData = {
     { id: "chownow", label: "ChowNow / Lula" },
     { id: "fcDeadCables", label: "Dead Ethernet Cables" },
     { id: "passport", label: "Passport version and document" },
-    { id: "deliPrinter", label: "Deli Printer" },
+    { id: "deliPrinter", label: "Deli Printer - Check physical damage, run test print, verify quality" },
+    { id: "deliTablet", label: "Deli Tablet - Check charging, updates, condition, and printer connection" },
     { id: "concerns", label: "Manager concerns" }
   ]
 };
@@ -251,14 +252,12 @@ document.getElementById('generatePdf').addEventListener('click', async () => {
     const number = row.querySelector('.inv-number').value;
     const notes = row.querySelector('.inv-notes').value;
     
-    if (number || notes) {
-      checkNewPage();
-      hasInventory = true;
-      page.drawText(`${name}`, { x: leftMargin, y: yPos, size: 10, font });
-      page.drawText(`${number}`, { x: leftMargin + 180, y: yPos, size: 10, font });
-      page.drawText(`${notes}`, { x: leftMargin + 230, y: yPos, size: 9, font });
-      yPos -= lineHeight;
-    }
+    // Always show inventory items (even if just showing "1")
+    checkNewPage();
+    page.drawText(`${name}`, { x: leftMargin, y: yPos, size: 10, font });
+    page.drawText(`${number}`, { x: leftMargin + 180, y: yPos, size: 10, font });
+    page.drawText(`${notes}`, { x: leftMargin + 230, y: yPos, size: 9, font });
+    yPos -= lineHeight;
   });
 
   // Signature
